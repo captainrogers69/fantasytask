@@ -91,14 +91,8 @@ class EditProfilePage extends HookWidget {
                       padding: const EdgeInsets.only(right: 15.0, left: 15),
                       child: Column(
                         children: [
-                          TextFormField(
+                          TextField(
                             controller: usernameController,
-                            validator: (value) {
-                              if (value == null || value.isEmpty) {
-                                return 'Please enter some text';
-                              }
-                              return null;
-                            },
                             decoration: InputDecoration(
                               enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(15),
@@ -304,12 +298,20 @@ class EditProfilePage extends HookWidget {
                           );
 
                           final downloadUrl = await context
-                            .read(storageServiceProvider)
-                            .getDownloadUrl();
+                              .read(storageServiceProvider)
+                              .getDownloadUrl();
 
-                        await context
-                            .read(authencationServiceProvider)
-                            .setProfilePhoto(downloadUrl);
+                          if (usernameController.text.isNotEmpty) {
+                            await context
+                                .read(authencationServiceProvider)
+                                .setDisplayName(usernameController.text);
+                          }
+
+                          await context
+                              .read(authencationServiceProvider)
+                              .setProfilePhoto(downloadUrl);
+
+                          context.refresh(userDetailsFutureProvider);
 
                           Navigator.pop(context);
 
