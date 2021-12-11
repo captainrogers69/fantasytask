@@ -20,9 +20,8 @@ class SignUpScreen extends HookWidget {
       body: Stack(children: <Widget>[
         SingleChildScrollView(
           child: isLoading.value
-              ? Center(
-                  child: Container(
-                      child: const Center(child: CircularProgressIndicator())))
+              ? const Center(
+                  child:  Center(child: CircularProgressIndicator()))
               : Column(
                   children: [
                     SizedBox(
@@ -83,7 +82,7 @@ class SignUpScreen extends HookWidget {
                         isLoading.value = false;
                         Navigator.pop(context);
                       },
-                      child: Text("SignUp"),
+                      child: const Text("SignUp"),
                     ),
                     SizedBox(
                       height: size.height / 45,
@@ -91,18 +90,18 @@ class SignUpScreen extends HookWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
+                       const  Text(
                           "Already have an account?",
                           style: TextStyle(color: Colors.black),
                         ),
-                        SizedBox(
+                      const  SizedBox(
                           width: 10,
                         ),
                         GestureDetector(
                           onTap: () {
                             Navigator.pop(context);
                           },
-                          child: Text(
+                          child:const Text(
                             "Login",
                             style: TextStyle(
                                 color: Colors.redAccent,

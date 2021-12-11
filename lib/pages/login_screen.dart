@@ -21,9 +21,8 @@ class LoginScreen extends HookWidget {
       body: Stack(children: <Widget>[
         SingleChildScrollView(
           child: isLoading.value
-              ? Center(
-                  child: Container(
-                      child: const Center(child: CircularProgressIndicator())))
+              ? const Center(
+                  child: Center(child: CircularProgressIndicator()))
               : Column(
                   children: [
                     SizedBox(
