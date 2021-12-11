@@ -62,9 +62,19 @@ class UserDetailService implements BaseUserDetailService {
           .doc(currentUser!.uid)
           .get();
 
+          if(doc.exists) {
       final userInApp = UserInApp.fromDocument(doc);
 
       return userInApp;
+          } else {
+            return UserInApp(
+              disignation: "not given", 
+              about: "not given", 
+              phoneNumber: "not given", 
+              githubLink: "not given", 
+              nearbyLocation: "not given", 
+              experience: "not given");
+          }
     } on FirebaseException catch (e) {
       throw CustomExeption(message: e.message);
     }

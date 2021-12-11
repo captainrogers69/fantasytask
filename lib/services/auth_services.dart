@@ -11,6 +11,8 @@ abstract class BaseAuthenticationService{
   Future<void>signupWithEmail(String email, String password);
   User? getCurrentUser();
   String? getCurrentUID();
+  Future<void> setDisplayName(String newUsername);
+  Future<void> setProfilePhoto(String photoUrl);
   Future<void>signOut();
 }
 
@@ -54,6 +56,17 @@ class AuthenticationService implements BaseAuthenticationService{
   @override
   User? getCurrentUser() {
     return _read(firebaseAuthProvider).currentUser;
+  }
+    @override
+  Future<void> setDisplayName(String? newUsername) async {
+    await _read(firebaseAuthProvider)
+        .currentUser!
+        .updateDisplayName(newUsername);
+  }
+
+  @override
+  Future<void> setProfilePhoto(String? photoUrl) async {
+    await _read(firebaseAuthProvider).currentUser!.updatePhotoURL(photoUrl);
   }
 
   @override
