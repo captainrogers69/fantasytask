@@ -1,7 +1,9 @@
+import 'dart:io';
 import 'package:fantasytask/custom_exception.dart';
 import 'package:fantasytask/general_providers.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
+import 'package:firebase_core/firebase_core.dart';
 
 abstract class BaseAuthenticationService{
   Stream<User?> get userchanges;
@@ -57,5 +59,42 @@ class AuthenticationService implements BaseAuthenticationService{
   @override
   Future<void> signOut() async {
     await _read(firebaseAuthProvider).signOut();
+  }
+}
+
+abstract class BaseStorageService {
+  Future<void> uploadProfileImage(File file);
+  Future<String?> getDownloadUrl();
+}
+
+final storageServiceProvider = Provider<StorageService>((ref) {
+  return StorageService(ref.read);
+});
+
+class StorageService implements BaseStorageService {
+  final Reader _read;
+
+  const StorageService(this._read);
+
+  @override
+  Future<String?> uploadProfileImage(File file) async {
+    try {
+      final userUID = _read(authencationServiceProvider).getCurrentUID();
+      final storageRef =
+          _read(firebaseStorageProvider).ref().child("users/profile/$userUID");
+      await storageRef.putFile(file);
+    } on FirebaseException catch (e) {
+      return e.message;
+    }
+  }
+
+  @override
+  Future<String?> getDownloadUrl() async {
+    final userUID = _read(authencationServiceProvider).getCurrentUID();
+    final downloadedUrl = await _read(firebaseStorageProvider)
+        .ref("users/profile/$userUID")
+        .getDownloadURL();
+
+    return downloadedUrl;
   }
 }

@@ -10,7 +10,7 @@ class MyHomePage extends HookWidget {
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    // final size = MediaQuery.of(context).size;
     final userProvider =
         useProvider(authencationServiceProvider).getCurrentUser();
 
@@ -34,7 +34,7 @@ class MyHomePage extends HookWidget {
             children: [
               Container(
                 height: MediaQuery.of(context).size.height / 8,
-                margin: EdgeInsets.only(right: 20, left: 20, top: 40),
+                margin:const EdgeInsets.only(right: 20, left: 20, top: 40),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -94,14 +94,14 @@ class MyHomePage extends HookWidget {
                                 );
                               });
                         },
-                        icon: Icon(Icons.menu)),
+                        icon:const Icon(Icons.menu)),
                     Container(
-                      margin: EdgeInsets.only(top: 10),
+                      margin: const EdgeInsets.only(top: 10),
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Column(
-                            children: [
+                            children:const [
                               Text(
                                 "Mayank Yadav",
                                 style: TextStyle(
@@ -121,20 +121,18 @@ class MyHomePage extends HookWidget {
                           ),
                           Padding(
                             padding: const EdgeInsets.only(bottom: 15.0),
-                            child: Container(
-                              child: InkWell(
-                                highlightColor: Colors.redAccent,
-                                onTap: //() {},
-                                    // _launchURLApp,
-                                    _launchURLBrowser,
-                                child: Text(
-                                  "https://github.com/captainrogers69",
-                                  style: TextStyle(
-                                    color: Colors.deepPurple,
-                                    fontWeight: FontWeight.bold,
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 13,
-                                  ),
+                            child: InkWell(
+                              highlightColor: Colors.redAccent,
+                              onTap: //() {},
+                                  // _launchURLApp,
+                                  _launchURLBrowser,
+                              child:const Text(
+                                "https://github.com/captainrogers69",
+                                style: TextStyle(
+                                  color: Colors.deepPurple,
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Montserrat',
+                                  fontSize: 13,
                                 ),
                               ),
                             ),
@@ -142,7 +140,7 @@ class MyHomePage extends HookWidget {
                         ],
                       ),
                     ),
-                    CircleAvatar(
+                  const  CircleAvatar(
                       radius: 35,
                       backgroundColor: Colors.deepPurple,
                       backgroundImage: AssetImage("assets/official_pp.jpg"),
@@ -150,19 +148,19 @@ class MyHomePage extends HookWidget {
                   ],
                 ),
               ),
-              Divider(
+             const Divider(
                 thickness: 1,
                 indent: 30,
                 endIndent: 30,
                 color: Colors.deepPurple,
               ),
               Container(
-                margin: EdgeInsets.only(right: 30, left: 30, top: 8, bottom: 8),
+                margin:const EdgeInsets.only(right: 30, left: 30, top: 8, bottom: 8),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Column(
-                      children: [
+                      children:const [
                         Text(
                           "13",
                           style: TextStyle(
@@ -181,7 +179,7 @@ class MyHomePage extends HookWidget {
                       ],
                     ),
                     Column(
-                      children: [
+                      children:const [
                         Text(
                           "15",
                           style: TextStyle(
@@ -200,7 +198,7 @@ class MyHomePage extends HookWidget {
                       ],
                     ),
                     Column(
-                      children: [
+                      children: const [
                         Text(
                           "12",
                           style: TextStyle(
@@ -221,7 +219,7 @@ class MyHomePage extends HookWidget {
                   ],
                 ),
               ),
-              Divider(
+           const   Divider(
                 thickness: 1,
                 indent: 30,
                 endIndent: 30,
@@ -229,13 +227,13 @@ class MyHomePage extends HookWidget {
               ),
               Container(
                 margin:
-                    EdgeInsets.only(right: 30, left: 30, bottom: 20, top: 10),
+                  const  EdgeInsets.only(right: 30, left: 30, bottom: 20, top: 10),
                 child: Column(
                   children: [
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                     const   Text(
                           "Experience",
                           style: TextStyle(
                               fontFamily: 'Montserrat',
@@ -243,9 +241,9 @@ class MyHomePage extends HookWidget {
                               color: Colors.grey,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 10),
+                     const   SizedBox(height: 10),
                         Row(
-                          children: [
+                          children: const [
                             Text(
                               "6+ months",
                               style: TextStyle(
@@ -257,17 +255,17 @@ class MyHomePage extends HookWidget {
                         ),
                       ],
                     ),
-                    Divider(
+                  const  Divider(
                       thickness: 1 / 2,
                       indent: 30,
                       endIndent: 30,
                       color: Colors.deepPurple,
                     ),
-                    SizedBox(height: 5),
+                   const SizedBox(height: 5),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                        const Text(
                           "Location",
                           style: TextStyle(
                               fontFamily: 'Montserrat',
@@ -275,9 +273,9 @@ class MyHomePage extends HookWidget {
                               color: Colors.grey,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 10),
+                      const  SizedBox(height: 10),
                         Row(
-                          children: [
+                          children:const [
                             Icon(Icons.location_pin, size: 17),
                             Text(
                               "Noida, India",
@@ -290,7 +288,7 @@ class MyHomePage extends HookWidget {
                         ),
                       ],
                     ),
-                    Divider(
+                  const  Divider(
                       thickness: 1 / 2,
                       indent: 30,
                       endIndent: 30,
@@ -300,7 +298,7 @@ class MyHomePage extends HookWidget {
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
+                      const  Text(
                           "Contact",
                           style: TextStyle(
                               fontFamily: 'Montserrat',
@@ -308,9 +306,9 @@ class MyHomePage extends HookWidget {
                               color: Colors.grey,
                               fontWeight: FontWeight.bold),
                         ),
-                        SizedBox(height: 10),
+                     const   SizedBox(height: 10),
                         Row(
-                          children: [
+                          children:const [
                             Icon(Icons.call, size: 17),
                             SizedBox(width: 10),
                             Text(
@@ -322,11 +320,11 @@ class MyHomePage extends HookWidget {
                             )
                           ],
                         ),
-                        SizedBox(height: 10),
+                      const  SizedBox(height: 10),
                         Row(
                           children: [
-                            Icon(Icons.mail, size: 17),
-                            SizedBox(width: 10),
+                          const  Icon(Icons.mail, size: 17),
+                          const  SizedBox(width: 10),
                             Text(
                               userProvider!.email!,
                               style: const TextStyle(
@@ -341,7 +339,7 @@ class MyHomePage extends HookWidget {
                   ],
                 ),
               ),
-              Divider(
+           const   Divider(
                 thickness: 1,
                 indent: 30,
                 endIndent: 30,
@@ -349,25 +347,25 @@ class MyHomePage extends HookWidget {
               ),
               Container(
                 margin:
-                    EdgeInsets.only(right: 30, left: 30, bottom: 10, top: 10),
+                   const EdgeInsets.only(right: 30, left: 30, bottom: 10, top: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                   const Text(
                       "Personal Details",
                       style: TextStyle(
                           fontFamily: 'Montserrat',
                           fontSize: 15,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                  const  SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Container(
                             height: 100,
                             width: 100,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.yellow,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
@@ -378,7 +376,7 @@ class MyHomePage extends HookWidget {
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: const [
                                 Text(
                                   "22",
                                   style: TextStyle(
@@ -399,7 +397,7 @@ class MyHomePage extends HookWidget {
                         Container(
                             height: 100,
                             width: 100,
-                            decoration: BoxDecoration(
+                            decoration:const BoxDecoration(
                               color: Colors.yellow,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
@@ -410,9 +408,9 @@ class MyHomePage extends HookWidget {
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children:const [
                                 Text(
-                                  "168" + "cm",
+                                  "168""cm",
                                   style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontSize: 22,
@@ -431,7 +429,7 @@ class MyHomePage extends HookWidget {
                         Container(
                             height: 100,
                             width: 100,
-                            decoration: BoxDecoration(
+                            decoration: const BoxDecoration(
                               color: Colors.yellow,
                               borderRadius: BorderRadius.only(
                                 topLeft: Radius.circular(20),
@@ -442,9 +440,9 @@ class MyHomePage extends HookWidget {
                             ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
+                              children: const [
                                 Text(
-                                  "84" + "kg",
+                                  "84""kg",
                                   style: TextStyle(
                                       fontFamily: 'Montserrat',
                                       fontSize: 22,
@@ -465,18 +463,18 @@ class MyHomePage extends HookWidget {
                   ],
                 ),
               ),
-              Divider(
+           const   Divider(
                 thickness: 1,
                 indent: 30,
                 endIndent: 30,
                 color: Colors.deepPurple,
               ),
               Container(
-                margin: EdgeInsets.only(right: 30, left: 30, bottom: 60),
+                margin:const EdgeInsets.only(right: 30, left: 30, bottom: 60),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                  const  Text(
                       "About",
                       style: TextStyle(
                           fontFamily: 'Montserrat',
@@ -484,10 +482,10 @@ class MyHomePage extends HookWidget {
                           color: Colors.grey,
                           fontWeight: FontWeight.bold),
                     ),
-                    SizedBox(height: 10),
+                  const  SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
+                      children: const [
                         Text(
                           "Whatever_it_takes!!",
                           style: TextStyle(
@@ -510,7 +508,7 @@ class MyHomePage extends HookWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => EditProfilePage(),
+              builder: (context) =>const EditProfilePage(),
             ),
           );
         },
