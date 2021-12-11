@@ -1,54 +1,54 @@
+import 'package:fantasytask/services/auth_services.dart';
+import 'package:fantasytask/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:fantasytask/widgets/textfields.dart';
+import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 
-class SignUpScreen extends StatefulWidget {
-  const SignUpScreen({ Key? key }) : super(key: key);
-
-  @override
-  _SignUpScreenState createState() => _SignUpScreenState();
-}
-class _SignUpScreenState extends State<SignUpScreen> {
-  
-  final emailController = TextEditingController();
-  final passwordController = TextEditingController();
-  final usernameController = TextEditingController();
+class SignUpScreen extends HookWidget {
+  const SignUpScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final emailController = useTextEditingController();
+    final passwordController = useTextEditingController();
+    final authProvider = useProvider(authencationServiceProvider);
+    final isLoading = useState(false);
+
     return Scaffold(
-      body: Stack(
-        children: <Widget>[
-              SingleChildScrollView(
-                child: Column(
+      body: Stack(children: <Widget>[
+        SingleChildScrollView(
+          child: isLoading.value
+              ? Center(
+                  child: Container(
+                      child: const Center(child: CircularProgressIndicator())))
+              : Column(
                   children: [
                     SizedBox(
-                height: size.height / 8,
-              ),
+                      height: size.height / 8,
+                    ),
                     const CircleAvatar(
                       radius: 60.0,
                       backgroundColor: Colors.deepPurple,
                       child: Icon(Icons.account_circle, size: 90),
                     ),
-                    const SizedBox(height: 20.0,),
+                    const SizedBox(
+                      height: 20.0,
+                    ),
                     Column(
                       children: const [
-                        Text("Create Account",style: TextStyle(fontSize: 28.0,fontFamily: 'JosefinSans',fontWeight: FontWeight.bold,
+                        Text(
+                          "Create Account",
+                          style: TextStyle(
+                              fontSize: 28.0,
+                              fontFamily: 'JosefinSans',
+                              fontWeight: FontWeight.bold,
                               color: Colors.black),
                         ),
                       ],
                     ),
                     const SizedBox(height: 30.0),
-                    Padding(
-                      padding: const EdgeInsets.only(left: 15, right: 15),
-                      child: TextFieldswidget(
-                        controller: usernameController,
-                        secureText: false,
-                        hintText: "Enter Your Name",
-                        helperText: "",
-                      )
-                    ),
-                    const SizedBox(height: 1.0),
                     Padding(
                       padding: const EdgeInsets.only(left: 15, right: 15),
                       child: TextFieldswidget(
@@ -69,43 +69,52 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       ),
                     ),
                     ElevatedButton(
-                style: ElevatedButton.styleFrom(primary: Colors.deepPurple),
-                onPressed: () {},
-                child: Text("SignUp"),
-              ),
-              SizedBox(
-                height: size.height / 45,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Already have an account?",
-                    style: TextStyle(
-                      color: Colors.black
+                      style:
+                          ElevatedButton.styleFrom(primary: Colors.deepPurple),
+                      onPressed: () async {
+                        isLoading.value = true;
+                        await authProvider
+                            .signupWithEmail(
+                                emailController.text, passwordController.text)
+                            .onError((error, stackTrace) {
+                          ErrorHandler.errorDialog(context, error);
+                          isLoading.value = false;
+                        });
+                        isLoading.value = false;
+                        Navigator.pop(context);
+                      },
+                      child: Text("SignUp"),
                     ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(
-                      "Login",
-                      style: TextStyle(
-                          color: Colors.redAccent,
-                          decoration: TextDecoration.underline),
+                    SizedBox(
+                      height: size.height / 45,
                     ),
-                  ),
-                ],
-              ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(
+                          "Already have an account?",
+                          style: TextStyle(color: Colors.black),
+                        ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.pop(context);
+                          },
+                          child: Text(
+                            "Login",
+                            style: TextStyle(
+                                color: Colors.redAccent,
+                                decoration: TextDecoration.underline),
+                          ),
+                        ),
+                      ],
+                    ),
                   ],
                 ),
-              )
-        ]
-      ),
+        )
+      ]),
     );
   }
 }
