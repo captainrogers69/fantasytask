@@ -33,13 +33,10 @@ class MyHomePage extends HookWidget {
       }
     }
 
-    return userDetailProvider.when(
-        data: (data) {
-          return Scaffold(
-            // appBar: AppBar(
-            //   backgroundColor: Colors.deepPurple,
-            // ),
-            body: SafeArea(
+    return Scaffold(
+      body: userDetailProvider.when(
+          data: (data) {
+            return SafeArea(
               child: SingleChildScrollView(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -112,7 +109,7 @@ class MyHomePage extends HookWidget {
                                       );
                                     });
                               },
-                              icon: const Icon(Icons.menu)),
+                              icon: const Icon(Icons.logout)),
                           Container(
                             margin: const EdgeInsets.only(top: 10),
                             child: Column(
@@ -120,16 +117,16 @@ class MyHomePage extends HookWidget {
                               children: [
                                 Column(
                                   children: [
-                                  const  Text(
-                                      "Mayank Yadav",
-                                      style: TextStyle(
+                                    Text(
+                                      userProvider!.displayName ?? "Unknown",
+                                      style: const TextStyle(
                                           fontFamily: 'Montserrat',
                                           fontSize: 22,
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      data.disignation ,
-                                      style:const TextStyle(
+                                      data.disignation,
+                                      style: const TextStyle(
                                           fontFamily: 'Montserrat',
                                           fontSize: 15,
                                           color: Colors.grey,
@@ -146,7 +143,7 @@ class MyHomePage extends HookWidget {
                                         _launchURLBrowser,
                                     child: Text(
                                       data.githubLink,
-                                      style:const TextStyle(
+                                      style: const TextStyle(
                                         color: Colors.deepPurple,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'Montserrat',
@@ -158,11 +155,12 @@ class MyHomePage extends HookWidget {
                               ],
                             ),
                           ),
-                          const CircleAvatar(
+                          CircleAvatar(
                             radius: 35,
                             backgroundColor: Colors.deepPurple,
-                            backgroundImage: 
-                                AssetImage("assets/official_pp.jpg"),
+                            backgroundImage: NetworkImage(userProvider!
+                                    .photoURL ??
+                                "https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png"),
                           )
                         ],
                       ),
@@ -295,8 +293,8 @@ class MyHomePage extends HookWidget {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children:  [
-                                const  Icon(Icons.location_pin, size: 17),
+                                children: [
+                                  const Icon(Icons.location_pin, size: 17),
                                   Text(
                                     data.nearbyLocation,
                                     style: const TextStyle(
@@ -328,12 +326,12 @@ class MyHomePage extends HookWidget {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children:  [
-                                const  Icon(Icons.call, size: 17),
-                                 const SizedBox(width: 10),
+                                children: [
+                                  const Icon(Icons.call, size: 17),
+                                  const SizedBox(width: 10),
                                   Text(
                                     data.phoneNumber,
-                                    style:const TextStyle(
+                                    style: const TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold),
@@ -525,43 +523,52 @@ class MyHomePage extends HookWidget {
                           right: 30, left: 30, bottom: 20),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.deepPurple
-                        ),
-                        onPressed: () {},
+                            primary: Colors.deepPurple),
+                        onPressed: () async {
+                          context
+                              .read(userDetailServiceProvider)
+                              .deleteUserInfo();
+
+                          context.refresh(userDetailsFutureProvider);
+                        },
                         child: const Text("Delete your info"),
                       ),
                     ),
                   ],
                 ),
               ),
-            ),
-            floatingActionButton: FloatingActionButton(
-              backgroundColor: Colors.deepPurple,
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const EditProfilePage(),
-                  ),
-                );
-              },
-              child: const Icon(Icons.edit),
+            );
+          },
+          loading: () => Container(
+              color: Colors.white,
+              child: Center(
+                child: Container(
+                  height: 50,
+                  width: 50,
+                  child: CircularProgressIndicator(),
+                ),
+              )),
+          error: (e, s) {
+            return Container(
+                color: Colors.white,
+                // ignore: sized_box_for_whitespace
+                child: Container(
+                    height: 100,
+                    width: 100,
+                    child: const Text("opps something went wrong")));
+          }),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.deepPurple,
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => const EditProfilePage(),
             ),
           );
         },
-        loading: () => Container(
-            color: Colors.white,
-            // ignore: sized_box_for_whitespace
-            child: Container(
-                height: 50, width: 50, child: const CircularProgressIndicator())),
-        error: (e, s) {
-          return Container(
-              color: Colors.white,
-              // ignore: sized_box_for_whitespace
-              child: Container(
-                  height: 100,
-                  width: 100,
-                  child: const Text("opps something went wrong")));
-        });
+        child: const Icon(Icons.edit),
+      ),
+    );
   }
 }
