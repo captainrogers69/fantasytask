@@ -1,6 +1,8 @@
+import 'package:fantasytask/services/auth_services.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
+import 'package:hooks_riverpod/hooks_riverpod.dart';
 import 'editprofile_page.dart';
 
 class MyHomePage extends HookWidget {
@@ -9,6 +11,8 @@ class MyHomePage extends HookWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
+    final userProvider =
+        useProvider(authencationServiceProvider).getCurrentUser();
 
     Future<void> _launchURLBrowser() async {
       const url = 'https://github.com/captainrogers69';
@@ -34,7 +38,63 @@ class MyHomePage extends HookWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    IconButton(onPressed: () {}, icon: Icon(Icons.menu)),
+                    IconButton(
+                        onPressed: () {
+                          showDialog(
+                              context: context,
+                              builder: (context) {
+                                return SimpleDialog(
+                                  shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                  ),
+                                  children: [
+                                    Container(
+                                      padding: const EdgeInsets.all(25),
+                                      child: Column(
+                                        children: [
+                                          const Text(
+                                            "Log Out Confirm ?",
+                                            style: TextStyle(
+                                              fontSize: 20,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
+                                          const SizedBox(height: 20),
+                                          Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              TextButton(
+                                                onPressed: () {
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text("Cancel"),
+                                              ),
+                                              ElevatedButton(
+                                                style: ButtonStyle(
+                                                  backgroundColor:
+                                                      MaterialStateProperty.all(
+                                                          Colors.deepPurple),
+                                                ),
+                                                onPressed: () async {
+                                                  await context
+                                                      .read(
+                                                          authencationServiceProvider)
+                                                      .signOut();
+                                                  Navigator.pop(context);
+                                                },
+                                                child: const Text("Log Out"),
+                                              ),
+                                            ],
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                );
+                              });
+                        },
+                        icon: Icon(Icons.menu)),
                     Container(
                       margin: EdgeInsets.only(top: 10),
                       child: Column(
@@ -83,7 +143,7 @@ class MyHomePage extends HookWidget {
                       ),
                     ),
                     CircleAvatar(
-                      radius: 45,
+                      radius: 35,
                       backgroundColor: Colors.deepPurple,
                       backgroundImage: AssetImage("assets/official_pp.jpg"),
                     )
@@ -268,8 +328,8 @@ class MyHomePage extends HookWidget {
                             Icon(Icons.mail, size: 17),
                             SizedBox(width: 10),
                             Text(
-                              "myyadavamayank1998@gmail.com",
-                              style: TextStyle(
+                              userProvider!.email!,
+                              style: const TextStyle(
                                   fontFamily: 'Montserrat',
                                   fontSize: 17,
                                   fontWeight: FontWeight.bold),
