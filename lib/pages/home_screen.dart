@@ -1,8 +1,6 @@
-import 'package:fantasytask/custom_exception.dart';
 import 'package:fantasytask/models/user.dart';
 import 'package:fantasytask/services/auth_services.dart';
 import 'package:fantasytask/services/user_detail_service.dart';
-import 'package:fantasytask/widgets/error_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
@@ -121,8 +119,8 @@ class MyHomePage extends HookWidget {
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
                                 Column(
-                                  children: const [
-                                    Text(
+                                  children: [
+                                  const  Text(
                                       "Mayank Yadav",
                                       style: TextStyle(
                                           fontFamily: 'Montserrat',
@@ -130,8 +128,8 @@ class MyHomePage extends HookWidget {
                                           fontWeight: FontWeight.bold),
                                     ),
                                     Text(
-                                      "Flutter Developer",
-                                      style: TextStyle(
+                                      data.disignation ,
+                                      style:const TextStyle(
                                           fontFamily: 'Montserrat',
                                           fontSize: 15,
                                           color: Colors.grey,
@@ -146,9 +144,9 @@ class MyHomePage extends HookWidget {
                                     onTap: //() {},
                                         // _launchURLApp,
                                         _launchURLBrowser,
-                                    child: const Text(
-                                      "https://github.com/captainrogers69",
-                                      style: TextStyle(
+                                    child: Text(
+                                      data.githubLink,
+                                      style:const TextStyle(
                                         color: Colors.deepPurple,
                                         fontWeight: FontWeight.bold,
                                         fontFamily: 'Montserrat',
@@ -163,7 +161,7 @@ class MyHomePage extends HookWidget {
                           const CircleAvatar(
                             radius: 35,
                             backgroundColor: Colors.deepPurple,
-                            backgroundImage:
+                            backgroundImage: 
                                 AssetImage("assets/official_pp.jpg"),
                           )
                         ],
@@ -297,11 +295,11 @@ class MyHomePage extends HookWidget {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children: const [
-                                  Icon(Icons.location_pin, size: 17),
+                                children:  [
+                                const  Icon(Icons.location_pin, size: 17),
                                   Text(
-                                    "Noida, India",
-                                    style: TextStyle(
+                                    data.nearbyLocation,
+                                    style: const TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold),
@@ -330,12 +328,12 @@ class MyHomePage extends HookWidget {
                               ),
                               const SizedBox(height: 10),
                               Row(
-                                children: const [
-                                  Icon(Icons.call, size: 17),
-                                  SizedBox(width: 10),
+                                children:  [
+                                const  Icon(Icons.call, size: 17),
+                                 const SizedBox(width: 10),
                                   Text(
-                                    "+918979642723",
-                                    style: TextStyle(
+                                    data.phoneNumber,
+                                    style:const TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold),
@@ -378,6 +376,7 @@ class MyHomePage extends HookWidget {
                             style: TextStyle(
                                 fontFamily: 'Montserrat',
                                 fontSize: 15,
+                                color: Colors.grey,
                                 fontWeight: FontWeight.bold),
                           ),
                           const SizedBox(height: 10),
@@ -493,7 +492,7 @@ class MyHomePage extends HookWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.only(
-                          right: 30, left: 30, bottom: 60),
+                          right: 30, left: 30, bottom: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -508,12 +507,12 @@ class MyHomePage extends HookWidget {
                           const SizedBox(height: 10),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
+                            children: [
                               Text(
-                                "Whatever_it_takes!!",
-                                style: TextStyle(
+                                data.about,
+                                style: const TextStyle(
                                     fontFamily: 'Montserrat',
-                                    fontSize: 22,
+                                    fontSize: 17,
                                     fontWeight: FontWeight.bold),
                               )
                             ],
@@ -523,32 +522,13 @@ class MyHomePage extends HookWidget {
                     ),
                     Container(
                       margin: const EdgeInsets.only(
-                          right: 30, left: 30, bottom: 60),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            "About",
-                            style: TextStyle(
-                                fontFamily: 'Montserrat',
-                                fontSize: 15,
-                                color: Colors.grey,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          const SizedBox(height: 10),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: const [
-                              Text(
-                                "Whatever_it_takes!!",
-                                style: TextStyle(
-                                    fontFamily: 'Montserrat',
-                                    fontSize: 22,
-                                    fontWeight: FontWeight.bold),
-                              )
-                            ],
-                          ),
-                        ],
+                          right: 30, left: 30, bottom: 20),
+                      child: ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          primary: Colors.deepPurple
+                        ),
+                        onPressed: () {},
+                        child: const Text("Delete your info"),
                       ),
                     ),
                   ],
@@ -569,9 +549,19 @@ class MyHomePage extends HookWidget {
             ),
           );
         },
-        loading: () => Container(child: const CircularProgressIndicator()),
+        loading: () => Container(
+            color: Colors.white,
+            // ignore: sized_box_for_whitespace
+            child: Container(
+                height: 50, width: 50, child: const CircularProgressIndicator())),
         error: (e, s) {
-          return const Text("opps something went wrong");
+          return Container(
+              color: Colors.white,
+              // ignore: sized_box_for_whitespace
+              child: Container(
+                  height: 100,
+                  width: 100,
+                  child: const Text("opps something went wrong")));
         });
   }
 }
