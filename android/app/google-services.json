@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "84672706389",
+    "project_id": "fantasytask",
+    "storage_bucket": "fantasytask.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:84672706389:android:7d4f4273be598669f7e1dc",
+        "android_client_info": {
+          "package_name": "com.example.fantasytask"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "84672706389-682b2afrgsamq6moqef3joqogq14s0sl.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDYX4SS-rlh4vR9NVTbLcdAzuZig9gQr00"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "84672706389-682b2afrgsamq6moqef3joqogq14s0sl.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
