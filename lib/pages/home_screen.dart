@@ -158,7 +158,7 @@ class MyHomePage extends HookWidget {
                           CircleAvatar(
                             radius: 35,
                             backgroundColor: Colors.deepPurple,
-                            backgroundImage: NetworkImage(userProvider!
+                            backgroundImage: NetworkImage(userProvider
                                     .photoURL ??
                                 "https://cdn3.iconfinder.com/data/icons/vector-icons-6/96/256-512.png"),
                           )
@@ -344,7 +344,7 @@ class MyHomePage extends HookWidget {
                                   const Icon(Icons.mail, size: 17),
                                   const SizedBox(width: 10),
                                   Text(
-                                    userProvider!.email!,
+                                    userProvider.email!,
                                     style: const TextStyle(
                                         fontFamily: 'Montserrat',
                                         fontSize: 17,
@@ -542,9 +542,11 @@ class MyHomePage extends HookWidget {
           loading: () => Container(
               color: Colors.white,
               child: Center(
+                // ignore: sized_box_for_whitespace
                 child: Container(
                   height: 50,
                   width: 50,
+                  // ignore: prefer_const_constructors
                   child: CircularProgressIndicator(),
                 ),
               )),
